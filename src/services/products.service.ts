@@ -72,6 +72,12 @@ export class ProductsService {
       };
     }
 
+    if (params.sortBy) {
+      options.order = {
+        [params.sortBy]: params.sortDirection ? params.sortDirection : 'ASC',
+      };
+    }
+
     if (params?.limit > 0 && params?.offset >= 0) {
       options.take = params?.limit;
       options.skip = params?.offset;

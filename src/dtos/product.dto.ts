@@ -9,6 +9,7 @@ import {
   ValidateIf,
   IsUrl,
   ArrayMinSize,
+  IsIn,
 } from 'class-validator';
 import { Field, InputType, ArgsType, Int } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
@@ -120,4 +121,14 @@ export class FilterProductsDto {
   @IsNumber()
   @Field({ nullable: true })
   categoryId: number;
+
+  @IsOptional()
+  @IsString()
+  @Field({ nullable: true })
+  sortBy: string;
+
+  @IsOptional()
+  @IsIn(['ASC', 'DESC'])
+  @Field({ nullable: true })
+  sortDirection: 'ASC' | 'DESC';
 }
