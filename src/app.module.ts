@@ -32,7 +32,7 @@ import environments from './config/environments';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: environments[process.env.NODE_ENV] || '.env.local',
+      envFilePath: environments[process.env.NODE_ENV] || '.env',
       load: [config],
       isGlobal: true,
     }),

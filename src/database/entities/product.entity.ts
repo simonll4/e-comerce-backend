@@ -30,6 +30,10 @@ export class Product {
   @Column()
   description: string;
 
+  @Field()
+  @Column({ default: 'Unknown Brand' })
+  brand: string;
+
   @Field(() => Category)
   @ManyToOne(() => Category, (category) => category.products)
   @JoinColumn({ name: 'category_id' })

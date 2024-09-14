@@ -26,9 +26,9 @@ export class SeedService {
     await usersRepo.save([
       {
         id: 1,
-        email: 'john@mail.com',
-        password: 'changeme',
-        name: 'Jhon',
+        email: 'simon@gmail.com',
+        password: '1234',
+        name: 'Simon Llamosas',
         role: Role.customer,
         avatar: 'https://i.imgur.com/LDOO4Qs.jpg',
       },
@@ -65,6 +65,7 @@ export class SeedService {
         title: product.title,
         price: parseInt(product.price, 10),
         description: product.description,
+        brand: product.brand,
         images: product.images,
         category: categoryEntity,
       };

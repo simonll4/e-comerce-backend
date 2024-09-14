@@ -8,6 +8,7 @@ type Product {
   title: String!
   price: Float!
   description: String!
+  brand: String!
   category: Category!
   images: [String!]!
   creationAt: DateTime!
@@ -48,7 +49,7 @@ type Login {
 }
 
 type Query {
-  products(limit: Int, offset: Int, price: Int, price_min: Int, price_max: Int, title: String, categoryId: Float, sortBy: String, sortDirection: String): [Product!]!
+  products(limit: Int, offset: Int, price: Int, brand: String, price_min: Int, price_max: Int, title: String, categoryId: Float, sortBy: String, sortDirection: String): [Product!]!
   product(id: ID!): Product!
   users(limit: Float): [User!]!
   user(id: ID!): User!
@@ -76,6 +77,7 @@ input CreateProductDto {
   title: String!
   price: Float!
   description: String!
+  brand: String!
   categoryId: Float!
   images: [String!]!
 }
@@ -84,6 +86,7 @@ input UpdateProductDto {
   title: String
   price: Float
   description: String
+  brand: String
   categoryId: Float
   images: [String!]
 }

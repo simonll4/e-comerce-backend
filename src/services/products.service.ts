@@ -38,7 +38,7 @@ export class ProductsService {
     return this.productsRepo.find(options);
   }
 
-  getAll(params: FilterProductsDto) {
+  async getAll(params: FilterProductsDto) {
     const options: FindManyOptions<Product> = {
       relations: ['category'],
     };
@@ -82,7 +82,35 @@ export class ProductsService {
       options.take = params?.limit;
       options.skip = params?.offset;
     }
-    return this.productsRepo.find(options);
+
+    //return this.productsRepo.find(options);
+    const [products, total] = await this.productsRepo.findAndCount(options);
+
+    // Si no hay paginación, solo devolver la lista de productos
+    if (
+      typeof params?.limit !== 'number' ||
+      params.limit <= 0 ||
+      typeof params?.offset !== 'number' ||
+      params.offset < 0
+    ) {
+      return { products };
+    }
+
+    // Calcular el número total de páginas
+    const totalPages = params?.limit ? Math.ceil(total / params?.limit) : 1;
+
+    return {
+      products,
+      pagination: {
+        totalItems: total,
+        totalPages,
+        currentPage:
+          params?.offset && params?.limit
+            ? Math.floor(params?.offset / params?.limit) + 1
+            : 1,
+        itemsPerPage: params?.limit || total,
+      },
+    };
   }
 
   findById(id: number) {

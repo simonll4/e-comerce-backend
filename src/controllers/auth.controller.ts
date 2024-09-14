@@ -29,7 +29,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('profile')
+  @Get('me')
   profile(@Req() req: Request) {
     const user = req.user as Payload;
     return this.usersService.findById(user?.userId);

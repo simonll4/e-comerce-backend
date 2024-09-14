@@ -35,6 +35,12 @@ export class CreateProductDto {
   description: string;
 
   @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  @Field()
+  brand: string;
+
+  @ApiProperty()
   @IsNumber()
   @IsNotEmpty()
   @Field()
@@ -70,6 +76,12 @@ export class UpdateProductDto {
   description: string;
 
   @ApiProperty()
+  @IsString()
+  @IsOptional()
+  @Field({ nullable: true })
+  brand: string;
+
+  @ApiProperty()
   @IsNumber()
   @IsOptional()
   @Field({ nullable: true })
@@ -101,6 +113,11 @@ export class FilterProductsDto {
   @IsOptional()
   @Field(() => Int, { nullable: true })
   price: number;
+
+  @IsOptional()
+  @IsString()
+  @Field({ nullable: true })
+  brand: string;
 
   @IsOptional()
   @Min(0)
