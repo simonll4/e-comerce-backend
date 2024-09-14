@@ -34,7 +34,7 @@ export class SeedService {
       },
       {
         id: 2,
-        email: 'maria@mail.com',
+        email: 'marias@mail.com',
         password: '12345',
         name: 'Maria',
         role: Role.customer,
