@@ -145,7 +145,7 @@ export class FilterProductsDto {
   sortBy: string;
 
   @IsOptional()
-  @IsIn(['ASC', 'DESC'])
+  @IsIn(['ASC', 'DESC', ''])
   @Field({ nullable: true })
   sortDirection: 'ASC' | 'DESC';
 }

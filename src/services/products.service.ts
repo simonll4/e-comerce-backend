@@ -104,11 +104,8 @@ export class ProductsService {
       pagination: {
         totalItems: total,
         totalPages,
-        currentPage:
-          params?.offset && params?.limit
-            ? Math.floor(params?.offset / params?.limit) + 1
-            : 1,
-        itemsPerPage: params?.limit || total,
+        offset: params?.offset + params?.limit,
+        limit: params?.limit,
       },
     };
   }
@@ -123,20 +120,27 @@ export class ProductsService {
   async update(id: Product['id'], changes: UpdateProductDto) {
     const product = await this.findById(id);
     if (changes.images) {
-      changes.images = JSON.stringify(changes.images);
+      //changes.images = JSON.stringify(changes.images);
+      if (Array.isArray(changes.images)) {
+        changes.images = changes.images.join(',');
+      }
     }
     this.productsRepo.merge(product, changes);
     return this.productsRepo.save(product);
   }
 
   async create(dto: CreateProductDto) {
-    const { categoryId, ...data } = dto;
+    const { categoryId, images, ...data } = dto;
     const category = await this.categoryRepo.findOneByOrFail({
       id: categoryId,
     });
+    // const newProduct = this.productsRepo.create({
+    //   ...data,
+    //   images: JSON.stringify(data.images),
+    // });
     const newProduct = this.productsRepo.create({
       ...data,
-      images: JSON.stringify(data.images),
+      images: Array.isArray(images) ? images.join(',') : images,
     });
     newProduct.category = category;
     return this.productsRepo.save(newProduct);

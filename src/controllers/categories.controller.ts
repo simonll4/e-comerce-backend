@@ -8,6 +8,7 @@ import {
   Query,
   Post,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -17,8 +18,12 @@ import { FilterProductsDto } from '@dtos/product.dto';
 import { UpdateCategoryDto } from '@dtos/category.dto';
 import { CreateCategoryDto } from '@dtos/category.dto';
 import { FilterCategoriesDto } from '@dtos/category.dto';
+import { RolesGuard } from '@guards/role.guard';
+import { Roles } from '@decorators/roles.decorator';
+import { Role } from '@models/roles';
 
 @ApiTags('categories')
+@UseGuards(RolesGuard)
 @Controller('categories')
 export class CategoriesController {
   constructor(
@@ -37,6 +42,7 @@ export class CategoriesController {
   }
 
   @Post()
+  @Roles(Role.admin)
   create(@Body() category: CreateCategoryDto) {
     return this.categoriesService.create(category);
   }
@@ -50,6 +56,7 @@ export class CategoriesController {
   }
 
   @Put(':id')
+  @Roles(Role.admin)
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() changes: UpdateCategoryDto,
@@ -58,6 +65,7 @@ export class CategoriesController {
   }
 
   @Delete(':id')
+  @Roles(Role.admin)
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.categoriesService.delete(id);
   }

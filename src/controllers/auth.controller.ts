@@ -18,13 +18,32 @@ export class AuthController {
     private usersService: UsersService,
   ) {}
 
+  // @UseGuards(LocalAuthGuard)
+  // @Post('login')
+  // login(@Req() req: Request) {
+  //   const user = req.user as User;
+  //   return {
+  //     access_token: this.authService.generateAccessToken(user),
+  //     refresh_token: this.authService.generateRefreshToken(user),
+  //   };
+  // }
+
   @UseGuards(LocalAuthGuard)
   @Post('login')
   login(@Req() req: Request) {
     const user = req.user as User;
     return {
-      access_token: this.authService.generateAccessToken(user),
-      refresh_token: this.authService.generateRefreshToken(user),
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        avatar: user.avatar,
+        role: user.role,
+      },
+      tokens: {
+        access_token: this.authService.generateAccessToken(user),
+        refresh_token: this.authService.generateRefreshToken(user),
+      },
     };
   }
 

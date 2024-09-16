@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags, ApiExcludeEndpoint } from '@nestjs/swagger';
 
@@ -15,8 +16,12 @@ import { ProductsService } from '@services/products.service';
 import { CreateProductDto } from '@dtos/product.dto';
 import { UpdateProductDto } from '@dtos/product.dto';
 import { FilterProductsDto } from '@dtos/product.dto';
+import { RolesGuard } from '@guards/role.guard';
+import { Role } from '@models/roles';
+import { Roles } from '@decorators/roles.decorator';
 
 @ApiTags('products')
+@UseGuards(RolesGuard)
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
@@ -32,11 +37,13 @@ export class ProductsController {
   }
 
   @Post()
+  @Roles(Role.admin)
   create(@Body() product: CreateProductDto) {
     return this.productsService.create(product);
   }
 
   @Put(':id')
+  @Roles(Role.admin)
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() changes: UpdateProductDto,
@@ -45,6 +52,7 @@ export class ProductsController {
   }
 
   @Delete(':id')
+  @Roles(Role.admin)
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.delete(id);
   }

@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   generateAccessToken(user: User) {
-    const payload: Payload = { sub: user.id };
+    const payload: Payload = { sub: user.id, role: user.role };
     return this.jwtService.sign(payload, {
       expiresIn: '10h',
       secret: this.configService.accessSecretKey,
@@ -40,7 +40,11 @@ export class AuthService {
   }
 
   generateJWT(user: User) {
-    const payload: Payload = { email: user.email, sub: user.id };
+    const payload: Payload = {
+      email: user.email,
+      sub: user.id,
+      role: user.role,
+    };
     return {
       access_token: this.jwtService.sign(payload),
     };
