@@ -9,6 +9,7 @@ import { Payload } from '@models/payload.model';
 import { RefreshTokenDto } from '@dtos/auth.dto';
 import { LocalAuthGuard } from '@guards/local-auth.guard';
 import { JwtAuthGuard } from '@guards/jwt-auth.guard';
+import { CreateUserDto } from '@dtos/user.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -43,6 +44,26 @@ export class AuthController {
       tokens: {
         access_token: this.authService.generateAccessToken(user),
         refresh_token: this.authService.generateRefreshToken(user),
+      },
+    };
+  }
+
+  @Post('register')
+  async register(@Body() createUserDto: CreateUserDto) {
+    const newUser = await this.usersService.create(createUserDto);
+    const accessToken = this.authService.generateAccessToken(newUser);
+    const refreshToken = this.authService.generateRefreshToken(newUser);
+    return {
+      user: {
+        id: newUser.id,
+        email: newUser.email,
+        name: newUser.name,
+        avatar: newUser.avatar,
+        role: newUser.role,
+      },
+      tokens: {
+        access_token: accessToken,
+        refresh_token: refreshToken,
       },
     };
   }
