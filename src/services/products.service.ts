@@ -72,6 +72,14 @@ export class ProductsService {
       };
     }
 
+    const { productAvailable } = params;
+    if (productAvailable) {
+      options.where = {
+        ...options.where,
+        productAvailable,
+      };
+    }
+
     if (params.sortBy) {
       options.order = {
         [params.sortBy]: params.sortDirection ? params.sortDirection : 'ASC',

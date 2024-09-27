@@ -10,6 +10,7 @@ import {
   IsUrl,
   ArrayMinSize,
   IsIn,
+  IsBoolean,
 } from 'class-validator';
 import { Field, InputType, ArgsType, Int } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
@@ -45,6 +46,17 @@ export class CreateProductDto {
   @IsNotEmpty()
   @Field()
   categoryId: number;
+
+  @ApiProperty()
+  @IsBoolean()
+  @IsNotEmpty()
+  @Field()
+  productAvailable: number;
+
+  @ApiProperty()
+  @IsNumber()
+  @Field()
+  stockQuantity: number;
 
   @ApiProperty()
   @IsArray()
@@ -86,6 +98,18 @@ export class UpdateProductDto {
   @IsOptional()
   @Field({ nullable: true })
   categoryId: number;
+
+  @ApiProperty()
+  @IsBoolean()
+  @IsOptional()
+  @Field()
+  productAvailable: number;
+
+  @ApiProperty()
+  @IsNumber()
+  @IsOptional()
+  @Field()
+  stockQuantity: number;
 
   @ApiProperty()
   @IsArray()
@@ -138,6 +162,11 @@ export class FilterProductsDto {
   @IsNumber()
   @Field({ nullable: true })
   categoryId: number;
+
+  @IsOptional()
+  @IsBoolean()
+  @Field({ nullable: true })
+  productAvailable: number;
 
   @IsOptional()
   @IsString()
