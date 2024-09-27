@@ -11,7 +11,7 @@ type Product {
   brand: String!
   category: Category!
   images: [String!]!
-  productAvailable: Float!
+  productAvailable: Boolean!
   stockQuantity: Float!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -81,7 +81,7 @@ input CreateProductDto {
   description: String!
   brand: String!
   categoryId: Float!
-  productAvailable: Float!
+  productAvailable: Boolean!
   stockQuantity: Float!
   images: [String!]!
 }
@@ -92,7 +92,7 @@ input UpdateProductDto {
   description: String
   brand: String
   categoryId: Float
-  productAvailable: Float!
+  productAvailable: Boolean!
   stockQuantity: Float!
   images: [String!]
 }

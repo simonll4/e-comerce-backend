@@ -68,7 +68,7 @@ export class SeedService {
         brand: product.brand,
         images: product.images,
         category: categoryEntity,
-        productAvailable: parseInt(product.productAvailable, 10),
+        productAvailable: Boolean(parseInt(product.productAvailable, 10)),
         stockQuantity: parseInt(product.stockQuantity, 10),
       };
     });

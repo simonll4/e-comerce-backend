@@ -46,12 +46,11 @@ export class Product {
 
   @Field()
   @Column()
-  productAvailable: number;
+  productAvailable: boolean;
 
   @Field()
-  @Column({default: 0})
+  @Column({ default: 0 })
   stockQuantity: number;
-
 
   @Field()
   @CreateDateColumn({

@@ -33,8 +33,8 @@ async function bootstrap() {
   SwaggerModule.setup('docs', app, document);
 
   // init database
-  //const seedService = app.get(SeedService);
-  //await seedService.init();
+  // const seedService = app.get(SeedService);
+  // await seedService.init();
 
   await app.listen(process.env.PORT || 3001);
 }

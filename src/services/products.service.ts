@@ -72,11 +72,19 @@ export class ProductsService {
       };
     }
 
+    const { brand } = params;
+    if (brand) {
+      options.where = {
+        ...options.where,
+        brand: brand,
+      };
+    }
+
     const { productAvailable } = params;
     if (productAvailable) {
       options.where = {
         ...options.where,
-        productAvailable,
+        productAvailable: Boolean(productAvailable),
       };
     }
 
@@ -138,14 +146,12 @@ export class ProductsService {
   }
 
   async create(dto: CreateProductDto) {
+    console.log(dto);
     const { categoryId, images, ...data } = dto;
     const category = await this.categoryRepo.findOneByOrFail({
       id: categoryId,
     });
-    // const newProduct = this.productsRepo.create({
-    //   ...data,
-    //   images: JSON.stringify(data.images),
-    // });
+
     const newProduct = this.productsRepo.create({
       ...data,
       images: Array.isArray(images) ? images.join(',') : images,

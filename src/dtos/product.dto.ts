@@ -51,7 +51,7 @@ export class CreateProductDto {
   @IsBoolean()
   @IsNotEmpty()
   @Field()
-  productAvailable: number;
+  productAvailable: boolean;
 
   @ApiProperty()
   @IsNumber()
@@ -103,7 +103,7 @@ export class UpdateProductDto {
   @IsBoolean()
   @IsOptional()
   @Field()
-  productAvailable: number;
+  productAvailable: boolean;
 
   @ApiProperty()
   @IsNumber()
