@@ -45,15 +45,24 @@ export class Product {
   images: string;
 
   @Field()
+  @Column()
+  productAvailable: number;
+
+  @Field()
+  @Column({default: 0})
+  stockQuantity: number;
+
+
+  @Field()
   @CreateDateColumn({
-    name: 'creation_at',
+    name: 'createdAt',
     default: () => 'CURRENT_TIMESTAMP',
   })
-  creationAt: Date;
+  createdAt: Date;
 
   @Field()
   @UpdateDateColumn({
-    name: 'updated_at',
+    name: 'updatedAt',
     default: () => 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
