@@ -40,7 +40,7 @@ type User {
   name: String!
   role: String!
   avatar: String!
-  creationAt: DateTime!
+  createdAt: DateTime!
   updatedAt: DateTime!
 }
 
