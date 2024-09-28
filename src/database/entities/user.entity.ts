@@ -36,14 +36,14 @@ export class User {
 
   @Field()
   @CreateDateColumn({
-    name: 'creation_at',
+    name: 'createdAt',
     default: () => 'CURRENT_TIMESTAMP',
   })
-  creationAt: Date;
+  createdAt: Date;
 
   @Field()
   @UpdateDateColumn({
-    name: 'updated_at',
+    name: 'updatedAt',
     default: () => 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
